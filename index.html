@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Manga Animé 🔥</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(120deg, #0f172a, #1e293b);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .box {
+            margin: auto;
+            margin-top: 80px;
+            width: 350px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            box-shadow: 0 0 20px cyan;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            color: cyan;
+            animation: glow 2s infinite alternate;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .correct {
+            background: #22c55e;
+        }
+
+        .wrong {
+            background: #ef4444;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px cyan; }
+            to { text-shadow: 0 0 20px cyan; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: cyan;
+            border-radius: 50%;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-10vh); }
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🎌 QUIZ MANGA ANIMÉ</h1>
+
+<div class="box">
+    <h2 id="question"></h2>
+
+    <button onclick="answer(0)" id="btn0"></button>
+    <button onclick="answer(1)" id="btn1"></button>
+    <button onclick="answer(2)" id="btn2"></button>
+
+    <p id="result"></p>
+</div>
+
+<script>
+let questions = [
+    {q:"Qui est le héros de Naruto ?", a:["Sasuke","Naruto","Itachi"], c:1},
+    {q:"Qui est Luffy ?", a:["Capitaine","Marine","Pirate roi"], c:0},
+    {q:"Dans AOT, qui attaque les humains ?", a:["Titans","Démons","Aliens"], c:0},
+    {q:"Quel anime a les Dragon Balls ?", a:["Naruto","Dragon Ball","Bleach"], c:1},
+    {q:"Qui utilise le Sharingan ?", a:["Sasuke","Zoro","Tanjiro"], c:0}
+];
+
+let i = 0;
+let score = 0;
+
+function load(){
+    document.getElementById("question").innerText = questions[i].q;
+    document.getElementById("btn0").innerText = questions[i].a[0];
+    document.getElementById("btn1").innerText = questions[i].a[1];
+    document.getElementById("btn2").innerText = questions[i].a[2];
+}
+
+function answer(n){
+    if(n === questions[i].c){
+        score++;
+        document.getElementById("result").innerText = "✅ Correct !";
+    } else {
+        document.getElementById("result").innerText = "❌ Faux !";
+    }
+
+    i++;
+
+    setTimeout(() => {
+        if(i < questions.length){
+            document.getElementById("result").innerText = "";
+            load();
+        } else {
+            document.querySelector(".box").innerHTML =
+            "🎉 Fin du quiz<br>Score: " + score + "/" + questions.length;
+        }
+    }, 1000);
+}
+
+load();
+
+// 🎇 animation particules
+for(let j=0;j<30;j++){
+    let p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random()*100 + "vw";
+    p.style.animationDuration = (Math.random()*5+3) + "s";
+    document.body.appendChild(p);
+}
+</script>
+
+</body>
+</html>
